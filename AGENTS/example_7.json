@@ -1,0 +1,338 @@
+{
+  "name": "example_7",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1264,
+        -416
+      ],
+      "id": "5f93044a-7e02-4452-9fac-311dbbb3f96c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/users",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1040,
+        -416
+      ],
+      "id": "40cb086c-81b9-433c-a8c7-5a359f9d1964",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99722bf6-fa08-4a30-9bd9-6da5a5aaed64",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "815d257b-b904-41a5-aad2-60ec36c3610f",
+              "name": "json",
+              "value": "={{ $json }}",
+              "type": "string"
+            },
+            {
+              "id": "b431ecaa-966b-4e0f-ae9e-52db52299f46",
+              "name": "name2",
+              "value": "={{ $node[\"HTTP Request\"].json.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -704,
+        -784
+      ],
+      "id": "43eb31bf-57d8-4b02-98fd-6fb090e61a43",
+      "name": "기본표현식"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99722bf6-fa08-4a30-9bd9-6da5a5aaed64",
+              "name": "name",
+              "value": "={{ $json.name }} 님 안녕하세요!!",
+              "type": "string"
+            },
+            {
+              "id": "1bf7b8eb-4630-45e1-b17a-06d5d0ac7e15",
+              "name": "upperName",
+              "value": "={{ $json.name.toUpperCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "c2a853b2-6a02-419e-ae14-643b5615333b",
+              "name": "nameLength",
+              "value": "={{ $json.name.length }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -704,
+        -608
+      ],
+      "id": "c766e333-435c-4cf3-b221-7b5c9686685d",
+      "name": "문자열표현식"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99722bf6-fa08-4a30-9bd9-6da5a5aaed64",
+              "name": "intID",
+              "value": "={{$json.id*2}}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -704,
+        -416
+      ],
+      "id": "77010e52-4026-471d-90b6-1dc44c6a0e7b",
+      "name": "수학표현식"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99722bf6-fa08-4a30-9bd9-6da5a5aaed64",
+              "name": "userType",
+              "value": "={{$json.id <= 5 ? \"VIP\" : \"일반\"}}",
+              "type": "string"
+            },
+            {
+              "id": "f7e926b5-e3e4-46ff-a3ff-4c56d325231e",
+              "name": "emailType",
+              "value": "={{ $json.email.includes(\"biz\") ? \"비지니스\" : \"개인\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -704,
+        -224
+      ],
+      "id": "30d9490d-8a9c-48cf-8eb8-f39bc55e3c24",
+      "name": "조건문표현식"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99722bf6-fa08-4a30-9bd9-6da5a5aaed64",
+              "name": "now",
+              "value": "={{ $now }}",
+              "type": "string"
+            },
+            {
+              "id": "6dc1560d-2345-4fda-b2b0-1f023caef77c",
+              "name": "={{ $today }}",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -704,
+        -16
+      ],
+      "id": "b47652e2-8e02-4d04-84d8-bccdab3e7865",
+      "name": "날짜표현식"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99722bf6-fa08-4a30-9bd9-6da5a5aaed64",
+              "name": "emailParts",
+              "value": "={{ $json.email.split(\"@\") }}",
+              "type": "string"
+            },
+            {
+              "id": "59a789df-c7db-448f-8195-d61c8501427d",
+              "name": "maskedEmail",
+              "value": "={{ $json.email.replace(/[a-z]/g,\"*\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -704,
+        192
+      ],
+      "id": "83aa02a2-9578-491e-80d8-70399040d7a1",
+      "name": "문자열처리함수"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99722bf6-fa08-4a30-9bd9-6da5a5aaed64",
+              "name": "활성화 상태",
+              "value": "={{ $workflow.active }}",
+              "type": "string"
+            },
+            {
+              "id": "3825ed80-7219-4a35-ade3-e32f4f17f675",
+              "name": "이름",
+              "value": "={{ $workflow.name }}",
+              "type": "string"
+            },
+            {
+              "id": "03eb0d34-1a76-4193-ab05-cf7aca79baa3",
+              "name": "실행 모드",
+              "value": "={{ $execution.mode }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        -544
+      ],
+      "id": "84d6d56c-9838-48c1-bcf6-64404f5ac075",
+      "name": "n8n고유기능"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99722bf6-fa08-4a30-9bd9-6da5a5aaed64",
+              "name": "email_mapping",
+              "value": "={{ $json.email.split(\"@\")[0]+\"@gmail.com\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -464,
+        -272
+      ],
+      "id": "c5acdac9-5357-4e68-a755-b555dc67d2ab",
+      "name": "mapping"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "기본표현식",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "문자열표현식",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "수학표현식",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "조건문표현식",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "날짜표현식",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "문자열처리함수",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "n8n고유기능",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "mapping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3c57b40d-025a-44b5-8fe9-bad2d76cff4d",
+  "meta": {
+    "instanceId": "66235ae0eb71c273aca0cc5acf3ccdb21565024bfcec4845400c7da6a7702aec"
+  },
+  "id": "5qVTKYV2O475mTb5",
+  "tags": []
+}
