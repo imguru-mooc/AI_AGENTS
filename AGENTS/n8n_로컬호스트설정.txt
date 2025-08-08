@@ -25,9 +25,9 @@ Microsoft Store Installer 클릭 하여 설치
 
 cmd 재시작 후
 C:\> ngrok --version
-ngrok version 3.34.
+ngrok version 3.24.
 
-ngrod 사이트 참조
+ngrok 사이트 참조
 ngrok 인증 
 C:\> ngrok config add-authtoken 30y0W9RbrSxLG0bYesn4GdQu8oW_6AZ5YQTBdmQSRo1Hcijnf
 
