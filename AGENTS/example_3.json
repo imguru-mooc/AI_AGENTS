@@ -1,0 +1,384 @@
+{
+  "name": "example_3",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        -448
+      ],
+      "id": "60140c0f-918a-405b-b9a9-7738fce24574",
+      "name": "When clicking ‘Execute workflow’",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/users",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -672,
+        -160
+      ],
+      "id": "9521487d-7288-433c-a8b5-4c23d27947c7",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9f510220-1882-4af5-8744-594c8107ce90",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "429099a6-929b-4a03-bf4d-58924c80afdf",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "5152a573-5586-4c17-ab9c-2977c82efe46",
+              "name": "username",
+              "value": "={{ $json.username }}",
+              "type": "string"
+            },
+            {
+              "id": "bbd0ce54-be81-40e7-b25a-cde98628ee70",
+              "name": "city",
+              "value": "={{ $json.address.city }}",
+              "type": "string"
+            },
+            {
+              "id": "db969ea2-d319-4151-a5de-6b17b58f2278",
+              "name": "zipcode",
+              "value": "={{ $json.address.zipcode }}",
+              "type": "string"
+            },
+            {
+              "id": "221b3618-556a-4833-ab7e-c0ab2e922976",
+              "name": "phone",
+              "value": "={{ $json.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "acb07683-ba11-4839-af02-47a895656131",
+              "name": "company_name",
+              "value": "={{ $json.company.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        -160
+      ],
+      "id": "3e83c11c-6416-4ff2-a0f1-22c2aef69e26",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1p8ETp4x5CJOFyC-kZfFBW_N7fbtH_oX669YsSliWnQ4",
+          "mode": "list",
+          "cachedResultName": "EX1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1p8ETp4x5CJOFyC-kZfFBW_N7fbtH_oX669YsSliWnQ4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2035053316,
+          "mode": "list",
+          "cachedResultName": "시트1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1p8ETp4x5CJOFyC-kZfFBW_N7fbtH_oX669YsSliWnQ4/edit#gid=2035053316"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "name": "={{ $json.name }}",
+            "username": "={{ $json.username }}",
+            "city": "={{ $json.city }}",
+            "zipcode": "={{ $json.zipcode }}",
+            "phone": "={{ $json.phone }}",
+            "company_name": "={{ $json.company_name }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "zipcode",
+              "displayName": "zipcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_name",
+              "displayName": "company_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -224,
+        -160
+      ],
+      "id": "4f114b26-9986-4e73-8dd9-01320fe3fc1d",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lUtSRUO8TsLIVwKu",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -896,
+        -256
+      ],
+      "id": "d6bc0bda-73ae-4090-87f2-7d33b1ff217e",
+      "name": "Schedule Trigger",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "path": "d9286053-411d-4a1a-85f9-d055af7ae309",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -896,
+        -64
+      ],
+      "id": "2c8a14ac-be04-42d1-b815-957940045b9c",
+      "name": "Webhook",
+      "webhookId": "d9286053-411d-4a1a-85f9-d055af7ae309",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "formTitle": "데이터를 추가할까요?",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "동의합니다.",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "동의"
+                  },
+                  {
+                    "option": "비동의"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -896,
+        128
+      ],
+      "id": "949969cd-6411-43ee-8cdf-0386c8052e60",
+      "name": "On form submission",
+      "webhookId": "0ce50513-15d3-449f-8f84-55d5631045ce",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -896,
+        304
+      ],
+      "id": "937aecbb-de27-4f6c-ac80-3e580b5dd46c",
+      "name": "When chat message received",
+      "webhookId": "e82cb748-3e7a-4183-ab59-5b489f73c08c"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "05468177-3318-4622-845d-45fad0a501c4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "66235ae0eb71c273aca0cc5acf3ccdb21565024bfcec4845400c7da6a7702aec"
+  },
+  "id": "Tn4RnnDJgchlEZD1",
+  "tags": []
+}

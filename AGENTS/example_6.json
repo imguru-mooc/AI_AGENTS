@@ -1,0 +1,217 @@
+{
+  "name": "example_6",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        -480
+      ],
+      "id": "f3b8c367-e3dd-4f9f-9d2b-d0577e582d8e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://dummyjson.com/users/1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2464,
+        -480
+      ],
+      "id": "aed92960-a4c4-48c1-b137-9a9bf7135d87",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9f510220-1882-4af5-8744-594c8107ce90",
+              "name": "firstName",
+              "value": "={{ $json.firstName }}",
+              "type": "string"
+            },
+            {
+              "id": "429099a6-929b-4a03-bf4d-58924c80afdf",
+              "name": "age",
+              "value": "={{ $json.age }}",
+              "type": "number"
+            },
+            {
+              "id": "5152a573-5586-4c17-ab9c-2977c82efe46",
+              "name": "country",
+              "value": "={{ $json.address.country }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2688,
+        -480
+      ],
+      "id": "6692b06f-a24b-4111-98b0-7f49f877ac50",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.country }}",
+                    "rightValue": "United States",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "9da3e6be-5d6f-4ffa-85eb-d9e72ff8da00"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a761ac4f-c7d8-4adc-80cd-c16622df344f",
+                    "leftValue": "={{ $json.country }}",
+                    "rightValue": "South Korea",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2944,
+        -480
+      ],
+      "id": "8ecd8542-6498-4eef-b779-28f3d04bccc2",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(i => ({\n  json: {\n    message: `Hello ${i.json.firstName}, age ${i.json.age}, from ${i.json.country ?? i.json.address?.country ?? 'Unknown'}`\n  }\n}));\n\n\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3232,
+        -560
+      ],
+      "id": "25f5cf47-b458-4d8f-a357-0253f76ff0c5",
+      "name": "미국"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(i => ({\n  json: {\n    message: `안녕하세요 ${i.json.firstName}, age ${i.json.age}, from ${i.json.country ?? i.json.address?.country ?? 'Unknown'}`\n  }\n}));\n\n\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3232,
+        -400
+      ],
+      "id": "94e7b9e1-bada-4656-be87-4fd75427ffd9",
+      "name": "한국"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "미국",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "한국",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "34e7e6b1-21e5-4cca-b712-d5c9e1bdfc3d",
+  "meta": {
+    "instanceId": "66235ae0eb71c273aca0cc5acf3ccdb21565024bfcec4845400c7da6a7702aec"
+  },
+  "id": "pJDahVmJ1dKxEyGf",
+  "tags": []
+}
