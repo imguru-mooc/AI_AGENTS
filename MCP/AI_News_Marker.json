@@ -1,0 +1,312 @@
+{
+  "name": "AI_News_Marker",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "a4b4acd9-44eb-44c0-8c33-c6ae009bd13e"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        0
+      ],
+      "id": "b8ffc9d5-9558-4c71-8bd9-bd9c17f8a3fc",
+      "name": "MCP AI News Server",
+      "webhookId": "a4b4acd9-44eb-44c0-8c33-c6ae009bd13e"
+    },
+    {
+      "parameters": {
+        "path": "be43dea1-aa05-4093-bbe9-b9e34bbe061f"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        304,
+        0
+      ],
+      "id": "dba8c6c6-6a58-4a89-9b90-62b768cbbb1d",
+      "name": "MCP Kakaotalk Server",
+      "webhookId": "be43dea1-aa05-4093-bbe9-b9e34bbe061f"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "구글스프레드시트의 뉴스기사를 수집할 웹사이트 출처 리스트 내용을 읽어옵니다.",
+        "documentId": {
+          "__rl": true,
+          "value": "1QyxiWSCTzm8xtl1HlF-GI5rkXsXpqa60drGAf0PG330",
+          "mode": "list",
+          "cachedResultName": "AI뉴스",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QyxiWSCTzm8xtl1HlF-GI5rkXsXpqa60drGAf0PG330/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "TargetSite",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QyxiWSCTzm8xtl1HlF-GI5rkXsXpqa60drGAf0PG330/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        -448,
+        208
+      ],
+      "id": "eb867e8b-0689-4633-a725-dd68edca6c13",
+      "name": "Read News Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "hSsHrwuSqfQIeHmk",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1QyxiWSCTzm8xtl1HlF-GI5rkXsXpqa60drGAf0PG330",
+          "mode": "list",
+          "cachedResultName": "AI뉴스",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QyxiWSCTzm8xtl1HlF-GI5rkXsXpqa60drGAf0PG330/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 442341354,
+          "mode": "list",
+          "cachedResultName": "Article",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QyxiWSCTzm8xtl1HlF-GI5rkXsXpqa60drGAf0PG330/edit#gid=442341354"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', `string`, 'string') }}",
+            "Summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', `string ( upper limit 200 character )`, 'string') }}",
+            "Link": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Link', `url string`, 'string') }}",
+            "Relevant Score": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Relevant_Score', `number ( range 0 ~ 100 )`, 'string') }}",
+            "Pupularity Score": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Pupularity_Score', `number ( range 0 ~ 100 )`, 'string') }}",
+            "Practical Score": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Practical_Score', `number ( range 0 ~ 100 )`, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Relevant Score",
+              "displayName": "Relevant Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Pupularity Score",
+              "displayName": "Pupularity Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Practical Score",
+              "displayName": "Practical Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        -288,
+        208
+      ],
+      "id": "5702ea42-5aa9-4875-986a-f268f34157c4",
+      "name": "Append row AI News Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "hSsHrwuSqfQIeHmk",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "Ku33Ss5EquVpXir6",
+          "mode": "list",
+          "cachedResultName": "kakaotalk semd me"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('text', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "text"
+          ],
+          "schema": [
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        176
+      ],
+      "id": "8998c347-15e4-407e-b469-5ff4a816ddc6",
+      "name": "Send Me Kakaotalk"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "dONFQtSaTCcmKfxI",
+          "mode": "list",
+          "cachedResultName": "Get_Website_Markdown"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('url', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "url"
+          ],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        208
+      ],
+      "id": "da3b4b2a-b492-4921-a21e-eb3f649f7bcb",
+      "name": "Get News Tool"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Read News Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP AI News Server",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row AI News Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP AI News Server",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Me Kakaotalk": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Kakaotalk Server",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get News Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP AI News Server",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "df7d320c-0e80-4e2e-911a-baf24b4ee7eb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "11f2544f8b12f2561c8ef9db2b1c5eabb970178c3477dc8dda1b5cf58b441c19"
+  },
+  "id": "WHc6NXoiIk56KQml",
+  "tags": []
+}

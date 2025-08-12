@@ -1,0 +1,186 @@
+{
+  "name": "Get_Website_Markdown",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.url }} 에 접속에서 html 문서를 수집하고 처리해줘",
+        "options": {
+          "systemMessage": "너는 웹페이지의 스크랩하는 전문가야. 불필요한 내용은 제외하고 마크다운으로 출력해야한다.\n불필요한 코드와 서식, 스타일, 아이콘, 이미지, 주석, 광고 링크, 관련없는 다른 사이트 링크, 네이게이션 메뉴 정보 는 제거하고,\n본문 컨텐츠의 모든 텍스트와 하위 링크 정보를 마크다운 형식으로 정리해줘. 본문 컨텐츠는 요약하지 말고 모두 가져온다.\n최초 html을 요청시, 사용할 도구는 Puppeteer이며, 이를 위 내용에 맞춰 정리한다.\n위 내용에 대한 마크다운 생성은 도구를 사용하는것이 아니라, 너가 직접 수행해."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "2453e0b1-d0e5-4731-aace-e0438223f242",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        96,
+        208
+      ],
+      "id": "ffdffa49-ed15-4ce9-86a5-67700f601fde",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "iii3aqaiPuXMK9ux",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2e3fe859-6d80-4b58-be3f-7f6b7e184bd7",
+              "name": "url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "45bc670b-6a5e-434b-bcaa-e04df53e8a71",
+              "name": "=id",
+              "value": "={{ $now.format('yyyyMMddHHMMss') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -48,
+        0
+      ],
+      "id": "fcaea8f0-ab7c-4fe4-badc-4c104684bb7d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        224
+      ],
+      "id": "5aaabc7f-9307-4355-87d4-9affc0203c9c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-puppeteer.puppeteerTool",
+      "typeVersion": 1,
+      "position": [
+        400,
+        208
+      ],
+      "id": "0ecd2649-f829-4c5a-bdb3-e2c0bf09c3cd",
+      "name": "Puppeteer"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "url"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -272,
+        0
+      ],
+      "id": "5994b067-a1a1-480f-8f2d-dd37e700143d",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Puppeteer": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "46e3fff8-9e53-41e3-aa68-fab5b9d614d7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "11f2544f8b12f2561c8ef9db2b1c5eabb970178c3477dc8dda1b5cf58b441c19"
+  },
+  "id": "dONFQtSaTCcmKfxI",
+  "tags": []
+}
