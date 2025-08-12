@@ -1,0 +1,7 @@
+URL                                   설명
+--------------------------------------------------------------------------------------------
+https://tldr.tech/ai/[YYYY-MM-DD]     https://tldr.tech/ai/[YYYY-MM-DD]의 포맷을 갖는다. 즉
+                                      https://tldr.tech/ai/2025-08-12 로 http 요청을 하면 된다.
+https://theaireport.beehiiv.com/
+https://www.therundown.ai/
+https://openai.com/news?display=list
