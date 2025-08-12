@@ -3,6 +3,25 @@
   "nodes": [
     {
       "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "text"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -528,
+        -176
+      ],
+      "id": "9226c042-47fb-4206-935a-3e7595e76a09",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
         "method": "POST",
         "url": "https://kapi.kakao.com/v2/api/talk/memo/default/send",
         "authentication": "genericCredentialType",
@@ -21,7 +40,7 @@
           "parameters": [
             {
               "name": "template_object",
-              "value": "{      \t\t  \"object_type\": \"text\",      \t\t  \"text\": \"OpenAI GPT-5 위기 모드 총점 260점 (관련성95 + 인기도95 + 실용성70)\\nGPT-5 출시 후 사용자 불만 급증으로 Sam Altman이 긴급 Reddit AMA 진행. 자동 라우팅 시스템 오류가 주요 원인으로 기술적 결함과 성능 문제 발생. GPT-4o 복구 약속\", \t\t  \"link\": { \t\t        \"web_url\": \"https://example.com\" \t\t    } \t\t\t}능 문제 발생. GPT-4o 복구 약속"
+              "value": "={     \n  \"object_type\": \"text\",     \n  \"text\": \"{{ $json.text.replaceAll(\"\\n\", \"\\\\n\") }}\",\n  \"link\": {\n        \"web_url\": \"https://developers.kakao.com\"\n    }\n}"
             }
           ]
         },
@@ -30,36 +49,17 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        208,
-        0
+        -304,
+        -176
       ],
-      "id": "f3fb8287-e810-42a4-a1ca-245e47bf0b9b",
-      "name": "HTTP Request",
+      "id": "c3f24702-396d-4b07-88ee-d7f9af4e8126",
+      "name": "Send me",
       "credentials": {
         "oAuth2Api": {
           "id": "FB8GtPrq5DgUw5Uc",
           "name": "Unnamed credential 2"
         }
       }
-    },
-    {
-      "parameters": {
-        "workflowInputs": {
-          "values": [
-            {
-              "name": "text"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        0,
-        0
-      ],
-      "id": "d20f6e5b-cd75-4ed0-a837-225a8e0c5de6",
-      "name": "When Executed by Another Workflow"
     }
   ],
   "pinData": {},
@@ -68,7 +68,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "Send me",
             "type": "main",
             "index": 0
           }
@@ -80,8 +80,9 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "13cc2d54-5cf7-4e5c-b645-e013cefb2034",
+  "versionId": "8c01279f-f956-4ad9-b402-62980967d830",
   "meta": {
+    "templateCredsSetupCompleted": true,
     "instanceId": "11f2544f8b12f2561c8ef9db2b1c5eabb970178c3477dc8dda1b5cf58b441c19"
   },
   "id": "Ku33Ss5EquVpXir6",
